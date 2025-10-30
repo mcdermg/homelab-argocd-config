@@ -17,22 +17,21 @@ spec:
           persistence:
             enabled: true
             size: 10Gi
-        
+
         promtail:
           enabled: true
-        
+
         grafana:
           enabled: true
           adminPassword: changeme
-  
+
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-  
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
