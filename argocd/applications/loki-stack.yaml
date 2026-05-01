@@ -5,29 +5,25 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    # This points to the Grafana Helm chart repo
-    repoURL: https://grafana.github.io/helm-charts
-    chart: loki-stack
-    targetRevision: 2.9.11  # Or latest version
-    helm:
-      values: |
-        loki:
-          enabled: true
-          persistence:
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki-stack
+      targetRevision: 2.9.11
+      helm:
+        values: |
+          loki:
             enabled: true
-            size: 10Gi
+            persistence:
+              enabled: true
+              size: 10Gi
 
-        promtail:
-          enabled: true
-
-        grafana:
-          enabled: true
-          adminPassword: changeme
-          service:
-            type: LoadBalancer
-            loadBalancerIP: 192.168.1.14
-
+          promtail:
+            enabled: true
+        valueFiles:
+          - $values/argocd/values/loki-stack/grafana-values.yaml
+    - repoURL: http://192.168.1.117/gary/homelab-argocd-config
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
