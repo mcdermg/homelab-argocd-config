@@ -1,0 +1,6 @@
+prometheus:
+  enabled: true
+  server:
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 192.168.1.15

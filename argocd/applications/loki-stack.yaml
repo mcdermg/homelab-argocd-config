@@ -11,15 +11,11 @@ spec:
       targetRevision: 2.9.11
       helm:
         values: |
-          loki:
-            enabled: true
-            persistence:
-              enabled: true
-              size: 10Gi
-
           promtail:
             enabled: true
         valueFiles:
+          - $values/argocd/values/loki-stack/loki-values.yaml
+          - $values/argocd/values/loki-stack/prometheus-values.yaml
           - $values/argocd/values/loki-stack/grafana-values.yaml
     - repoURL: http://192.168.1.117/gary/homelab-argocd-config
       targetRevision: HEAD
