@@ -11,16 +11,16 @@ prometheus:
         secretName: supabase-metrics
         mountPath: /etc/prometheus/secrets/supabase
         readOnly: true
-    extraScrapeConfigs: |
-      - job_name: supabase
-        scrape_interval: 60s
-        metrics_path: /customer/v1/privileged/metrics
-        scheme: https
-        basic_auth:
-          username: service_role
-          password_file: /etc/prometheus/secrets/supabase/password
-        static_configs:
-          - targets:
-              - 'lhzbwcodchhjnbjcwmul.supabase.co:443'
-            labels:
-              project: 'lhzbwcodchhjnbjcwmul'
+  extraScrapeConfigs: |
+    - job_name: supabase
+      scrape_interval: 60s
+      metrics_path: /customer/v1/privileged/metrics
+      scheme: https
+      basic_auth:
+        username: service_role
+        password_file: /etc/prometheus/secrets/supabase/password
+      static_configs:
+        - targets:
+            - 'lhzbwcodchhjnbjcwmul.supabase.co:443'
+          labels:
+            project: 'lhzbwcodchhjnbjcwmul'
