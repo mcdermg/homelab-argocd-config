@@ -17,7 +17,7 @@ spec:
           - $values/argocd/values/loki-stack/loki-values.yaml
           - $values/argocd/values/loki-stack/prometheus-values.yaml
           - $values/argocd/values/loki-stack/grafana-values.yaml
-    - repoURL: http://192.168.1.117/gary/homelab-argocd-config
+    - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
       targetRevision: HEAD
       ref: values
   destination:
