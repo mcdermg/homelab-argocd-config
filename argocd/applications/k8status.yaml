@@ -13,6 +13,7 @@ spec:
         values: |
           k8status:
             allNamespaces: true  # report on every namespace, not just k8status
+            mode: exclusive
     - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
       targetRevision: HEAD
       path: argocd/manifests/k8status   # your LoadBalancer service
@@ -23,5 +24,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    managedNamespaceMetadata:      # annotates the k8status namespace so k8status looks in it
+      annotations:
+        k8status.stenic.io/include: "true"
     syncOptions:
       - CreateNamespace=true

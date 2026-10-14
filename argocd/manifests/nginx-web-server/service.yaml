@@ -5,6 +5,7 @@ metadata:
   namespace: nginx-web-server
   annotations:
     metallb.io/loadBalancerIPs: 192.168.1.12   # pins the IP from the MetalLB pool
+    k8status.stenic.io/include: "true"
 spec:
   type: LoadBalancer
   selector:
