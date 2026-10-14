@@ -16,5 +16,8 @@ spec:
     automated:
       prune: true                # delete what you remove from git
       selfHeal: true             # undo hand edits made with kubectl
+    managedNamespaceMetadata:
+      annotations:
+        k8status.stenic.io/include: "true"
     syncOptions:
       - CreateNamespace=true

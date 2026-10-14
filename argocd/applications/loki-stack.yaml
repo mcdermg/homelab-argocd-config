@@ -28,5 +28,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    managedNamespaceMetadata:
+      annotations:
+        k8status.stenic.io/include: "true"
     syncOptions:
       - CreateNamespace=true
