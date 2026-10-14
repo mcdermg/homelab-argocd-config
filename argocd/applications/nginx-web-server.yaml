@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-web-server
+  namespace: argocd              # Applications always live in the argocd namespace
+spec:
+  project: default
+  source:
+    repoURL: http://192.168.1.117/homelab/homelab-argocd-config
+    targetRevision: HEAD         # latest commit on the default branch
+    path: argocd/manifests/nginx-web-server
+  destination:
+    server: https://kubernetes.default.svc   # this cluster
+    namespace: nginx-web-server
+  syncPolicy:
+    automated:
+      prune: true                # delete what you remove from git
+      selfHeal: true             # undo hand edits made with kubectl
+    syncOptions:
+      - CreateNamespace=true

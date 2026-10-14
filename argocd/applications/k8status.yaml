@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8status
+  namespace: argocd
+spec:
+  project: default
+  sources:                       # plural: two sources in one app
+    - repoURL: https://stenic.github.io/k8status/
+      chart: k8status
+      targetRevision: 0.17.0     # chart version, pinned
+      helm:
+        values: |
+          k8status:
+            allNamespaces: true  # report on every namespace, not just k8status
+    - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
+      targetRevision: HEAD
+      path: argocd/manifests/k8status   # your LoadBalancer service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: k8status
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
