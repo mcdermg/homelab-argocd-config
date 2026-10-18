@@ -8,3 +8,14 @@ prometheus:
       loadBalancerIP: 192.168.1.15
       annotations:
         k8status.stenic.io/include: "true"
+  # Run on the tainted control planes too (LAB-90)
+  nodeExporter:
+    tolerations:
+      - operator: Exists
+  # The Proxmox nodes aren't k8s nodes, so service discovery doesn't find them (LAB-90)
+  extraScrapeConfigs: |
+    - job_name: proxmox-nodes
+      static_configs:
+        - targets:
+            - 192.168.1.250:9100
+            - 192.168.1.251:9100
