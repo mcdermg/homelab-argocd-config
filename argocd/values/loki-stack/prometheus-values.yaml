@@ -48,7 +48,8 @@ prometheus:
           slack_configs:
             - api_url_file: /etc/alertmanager/slack/url
               send_resolved: true
-              title: '[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}'
+              # Source first, so k3s and Zero alerts in the same channel tell apart at a glance
+              title: 'k3s | [{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}'
               text: |-
                 {{ range .Alerts }}*{{ .Annotations.title }}* - `{{ .Labels.severity }}`
                 {{ .Annotations.description }}
