@@ -44,6 +44,9 @@ spec:
             # The default 127.0.0.1 can't be reached by the kubelet's probes
             - name: PULSE_HEALTH_ADDR
               value: ":9191"
+            # Upgrades come from bumping the image tag; the read-only image can't replace its own binary
+            - name: PULSE_DISABLE_AUTO_UPDATE
+              value: "true"
           livenessProbe:
             httpGet:
               path: /healthz
@@ -59,9 +62,16 @@ spec:
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+          # The root filesystem is read-only; the agent keeps its state here
+          volumeMounts:
+            - name: state
+              mountPath: /var/lib/pulse-agent
           resources:
             requests:
               cpu: 50m
               memory: 128Mi
             limits:
               memory: 512Mi
+      volumes:
+        - name: state
+          emptyDir: {}
