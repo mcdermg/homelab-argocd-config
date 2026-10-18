@@ -1,0 +1,67 @@
+# One agent reports the whole cluster to Pulse (LAB-121). The Pulse docs use a DaemonSet,
+# but every pod would send the same cluster view; host metrics come from node_exporter instead
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulse-agent
+  namespace: pulse
+  labels:
+    app: pulse-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pulse-agent
+  template:
+    metadata:
+      labels:
+        app: pulse-agent
+    spec:
+      serviceAccountName: pulse-agent
+      containers:
+        - name: pulse-agent
+          # Keep in step with pulse_version in homelab-proxmox's Pulse role
+          image: rcourtman/pulse:v6.5.0
+          command: ["/usr/local/bin/pulse-agent"]
+          args:
+            - --enable-kubernetes
+          env:
+            - name: PULSE_URL
+              value: http://192.168.1.112:7655
+            - name: PULSE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pulse-agent-env
+                  key: PULSE_TOKEN
+            - name: PULSE_AGENT_ID
+              value: homelab-k3s
+            - name: PULSE_ENABLE_HOST
+              value: "false"
+            - name: PULSE_KUBE_INCLUDE_ALL_PODS
+              value: "true"
+            - name: PULSE_KUBE_INCLUDE_ALL_DEPLOYMENTS
+              value: "true"
+            # The default 127.0.0.1 can't be reached by the kubelet's probes
+            - name: PULSE_HEALTH_ADDR
+              value: ":9191"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9191
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 9191
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
