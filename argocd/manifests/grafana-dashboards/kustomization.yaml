@@ -15,3 +15,11 @@ configMapGenerator:
     options:
       annotations:
         grafana_folder: ISP
+  # Logging Dashboard via Loki (grafana.com 12611 rev 2), kept here because its Loki uid is hard-coded,
+  # so the chart's datasource mapping can't remap it (LAB-156)
+  - name: grafana-dashboards-lab
+    files:
+      - loki-logs.json
+    options:
+      annotations:
+        grafana_folder: Lab
