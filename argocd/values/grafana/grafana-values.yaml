@@ -9,6 +9,26 @@ persistence:
 deploymentStrategy:
   type: Recreate
 
+# Fixed uids so dashboards can bind to a data source by uid (LAB-146)
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: prometheus
+        uid: prometheus
+        type: prometheus
+        url: http://loki-stack-prometheus-server.monitoring.svc
+        isDefault: true
+      # The Zero's Prometheus on the ISP network: the ISP Blackbox probes, and the lab seen from outside
+      - name: prometheus-zero
+        uid: prometheus-zero
+        type: prometheus
+        url: http://192.168.0.62:9090
+      - name: loki
+        uid: loki
+        type: loki
+        url: http://loki-stack.monitoring.svc:3100
+
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.1.14

@@ -16,6 +16,10 @@ spec:
           # Grafana is its own Application now (LAB-145)
           grafana:
             enabled: false
+            # Its data source ConfigMap made Loki the default; Grafana defines its own now (LAB-146)
+            sidecar:
+              datasources:
+                enabled: false
         valueFiles:
           - $values/argocd/values/loki-stack/loki-values.yaml
           - $values/argocd/values/loki-stack/prometheus-values.yaml
