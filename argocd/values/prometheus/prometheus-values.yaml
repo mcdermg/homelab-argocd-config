@@ -25,6 +25,12 @@ extraScrapeConfigs: |
       - targets:
           - 192.168.1.250:9100
           - 192.168.1.251:9100
+  # Both cloudflared replicas' metrics on the container IP (homelab-proxmox playbook.yaml, LAB-164)
+  - job_name: cloudflared
+    static_configs:
+      - targets:
+          - 192.168.1.113:20241
+          - 192.168.1.118:20241
 
 # ALERTING (LAB-124): resource health inside the lab and Kubernetes problems. Host up/down belongs
 # to Gatus and Pulse, the ISP and the Zero to the Zero's Alertmanager (LAB-122)
