@@ -37,6 +37,24 @@ sidecar:
     provider:
       foldersFromFilesStructure: true
 
+# Dashboards from grafana.com, downloaded at pod start; pin a revision, the chart fetches revision 1 without one
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: grafana-com
+        folder: Lab
+        type: file
+        disableDeletion: true
+        options:
+          path: /var/lib/grafana/dashboards/grafana-com
+dashboards:
+  grafana-com:
+    # Has its own data source picker, so it covers both prometheus and prometheus-zero (LAB-154)
+    node-exporter-full:
+      gnetId: 1860
+      revision: 45
+
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.1.14
