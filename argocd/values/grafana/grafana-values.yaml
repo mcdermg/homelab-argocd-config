@@ -29,6 +29,14 @@ datasources:
         type: loki
         url: http://loki-stack.monitoring.svc:3100
 
+# Dashboards from argocd/manifests/grafana-dashboards, foldered by each ConfigMap's grafana_folder annotation
+sidecar:
+  dashboards:
+    enabled: true
+    folderAnnotation: grafana_folder
+    provider:
+      foldersFromFilesStructure: true
+
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.1.14

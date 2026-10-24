@@ -15,6 +15,9 @@ spec:
     - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
       targetRevision: HEAD
       ref: values
+    - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
+      targetRevision: HEAD
+      path: argocd/manifests/grafana-dashboards
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
