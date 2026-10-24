@@ -2674,8 +2674,8 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "probe_http_uncompressed_body_length{job=\"isp-download\"} * 8 / on(instance, job) probe_http_duration_seconds{job=\"isp-download\",phase=\"transfer\"}",
-          "interval": "",
+          "expr": "last_over_time(probe_http_uncompressed_body_length{job=\"isp-download\"}[2h]) * 8 / on(instance, job) last_over_time(probe_http_duration_seconds{job=\"isp-download\",phase=\"transfer\"}[2h])",
+          "interval": "2h",
           "legendFormat": "{{instance}}",
           "refId": "A",
           "datasource": {
@@ -2684,7 +2684,7 @@
           }
         }
       ],
-      "timeFrom": null,
+      "timeFrom": "24h",
       "timeShift": null,
       "title": "Download Throughput",
       "type": "timeseries"
