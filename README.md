@@ -17,6 +17,7 @@ ArgoCD pulls this repo from its Gitea mirror. The root app, installed by OpenTof
 - `coredns-custom`: sends CoreDNS lookups for `homelab.local` straight to bind9 (`192.168.1.153`)
 - `nginx-web-server`: Nginx test app (`.12`)
 - `k8status`: service status dashboard (`.11`)
+- `pulse-agent`: the Pulse Kubernetes agent, reporting the cluster to Pulse
 
 ### Pre-commit
 
