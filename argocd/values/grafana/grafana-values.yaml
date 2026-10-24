@@ -17,7 +17,7 @@ datasources:
       - name: prometheus
         uid: prometheus
         type: prometheus
-        url: http://loki-stack-prometheus-server.monitoring.svc
+        url: http://prometheus-server.monitoring.svc
         isDefault: true
         # Its scrape interval; Grafana's 15s default makes $__rate_interval too short for rate() on 1m scrapes
         jsonData:
