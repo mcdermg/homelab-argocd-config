@@ -12,6 +12,7 @@ ArgoCD pulls this repo from its Gitea mirror. The root app, installed by OpenTof
 - `metallb-config`: the LoadBalancer address pool (`192.168.1.10`–`.49`)
 - `loki-stack`: Loki, Promtail and Prometheus (`.15`)
 - `grafana`: Grafana (`.14`), with its admin login from the `grafana-admin` Secret
+- `coredns-custom`: sends CoreDNS lookups for `homelab.local` straight to bind9 (`192.168.1.153`)
 - `nginx-web-server`: Nginx test app (`.12`)
 - `k8status`: service status dashboard (`.11`)
 
