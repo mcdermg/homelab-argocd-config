@@ -32,7 +32,7 @@ datasources:
       - name: loki
         uid: loki
         type: loki
-        url: http://loki-stack.monitoring.svc:3100
+        url: http://loki.monitoring.svc:3100
 
 # Dashboards from argocd/manifests/grafana-dashboards, foldered by each ConfigMap's grafana_folder annotation
 sidecar:

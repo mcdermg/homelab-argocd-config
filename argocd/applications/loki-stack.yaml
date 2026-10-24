@@ -11,8 +11,14 @@ spec:
       targetRevision: 2.9.11
       helm:
         values: |
+          # Only Promtail is left here, pushing to the loki Application (LAB-148) until Alloy replaces it (LAB-149)
           promtail:
             enabled: true
+            config:
+              clients:
+                - url: http://loki:3100/loki/api/v1/push
+          loki:
+            enabled: false
           # Grafana is its own Application now (LAB-145)
           grafana:
             enabled: false
@@ -23,8 +29,6 @@ spec:
           # Prometheus and Alertmanager are their own Application now (LAB-147)
           prometheus:
             enabled: false
-        valueFiles:
-          - $values/argocd/values/loki-stack/loki-values.yaml
     - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
       targetRevision: HEAD
       ref: values
