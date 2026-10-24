@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-exporter
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://lablabs.github.io/cloudflare-exporter/
+      chart: cloudflare-exporter
+      targetRevision: 0.2.3
+      helm:
+        valueFiles:
+          - $values/argocd/values/cloudflare-exporter/cloudflare-exporter-values.yaml
+    - repoURL: http://192.168.1.117/homelab/homelab-argocd-config
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

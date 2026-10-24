@@ -14,6 +14,7 @@ ArgoCD pulls this repo from its Gitea mirror. The root app, installed by OpenTof
 - `loki`: Loki 3, one process with a 10Gi volume and 31 days of retention
 - `prometheus`: Prometheus (`.15`) and Alertmanager (`.16`), with node-exporter and kube-state-metrics
 - `grafana`: Grafana (`.14`), with its admin login from the `grafana-admin` Secret
+- `cloudflare-exporter`: Cloudflare zone analytics for Prometheus, its token from the `cloudflare-exporter` Secret
 - `coredns-custom`: sends CoreDNS lookups for `homelab.local` straight to bind9 (`192.168.1.153`)
 - `nginx-web-server`: Nginx test app (`.12`)
 - `k8status`: service status dashboard (`.11`)

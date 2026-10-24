@@ -1,0 +1,12 @@
+# Zone analytics from Cloudflare's GraphQL API (LAB-163). The token, account and zone come from the cloudflare-exporter
+# Secret as env vars (CF_API_TOKEN, CF_ACCOUNTS, CF_ZONES), created by homelab-proxmox's k3s.yaml (LAB-162)
+image:
+  # The chart's appVersion still says 0.0.16; 0.2.3 is the newest image (the same build as latest)
+  tag: "0.2.3"
+  pullPolicy: IfNotPresent
+secretRef: cloudflare-exporter
+env:
+  # The zone is on the Free plan; skip the metrics it doesn't include
+  - name: FREE_TIER
+    value: "true"
+# The Service carries prometheus.io/scrape, so the k3s Prometheus's kubernetes-service-endpoints job scrapes it
