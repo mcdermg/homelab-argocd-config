@@ -59,6 +59,12 @@ dashboardProviders:
         disableDeletion: true
         options:
           path: /var/lib/grafana/dashboards/kubernetes
+      - name: cloudflare
+        folder: Cloudflare
+        type: file
+        disableDeletion: true
+        options:
+          path: /var/lib/grafana/dashboards/cloudflare
 dashboards:
   grafana-com:
     # Has its own data source picker, so it covers both prometheus and prometheus-zero (LAB-154)
@@ -82,6 +88,14 @@ dashboards:
     k8s-system-api-server:
       gnetId: 15761
       revision: 21
+  # Tunnel health from cloudflared's own metrics (LAB-164); ${DS_PROMETHEUS} is mapped to the prometheus uid (LAB-165)
+  cloudflare:
+    cloudflare-tunnel:
+      gnetId: 24874
+      revision: 4
+      datasource:
+        - name: DS_PROMETHEUS
+          value: prometheus
 
 service:
   type: LoadBalancer
