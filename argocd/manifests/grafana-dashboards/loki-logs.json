@@ -901,7 +901,8 @@
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",
-        "useTags": false
+        "useTags": false,
+        "allValue": ".+"
       },
       {
         "current": {
@@ -933,25 +934,20 @@
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",
-        "useTags": false
+        "useTags": false,
+        "allValue": ".+"
       },
       {
         "current": {
           "selected": false,
-          "text": "error",
-          "value": "error"
+          "text": "",
+          "value": ""
         },
         "hide": 0,
         "label": "Search (case insensitive)",
         "name": "searchable_pattern",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "error",
+        "options": [],
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       }
