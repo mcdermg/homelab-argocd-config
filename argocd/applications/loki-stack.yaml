@@ -11,12 +11,9 @@ spec:
       targetRevision: 2.9.11
       helm:
         values: |
-          # Only Promtail is left here, pushing to the loki Application (LAB-148) until Alloy replaces it (LAB-149)
+          # Alloy ships the logs now (LAB-149); nothing is left here and LAB-150 removes this Application
           promtail:
-            enabled: true
-            config:
-              clients:
-                - url: http://loki:3100/loki/api/v1/push
+            enabled: false
           loki:
             enabled: false
           # Grafana is its own Application now (LAB-145)
