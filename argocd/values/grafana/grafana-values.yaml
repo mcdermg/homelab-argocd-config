@@ -19,11 +19,16 @@ datasources:
         type: prometheus
         url: http://loki-stack-prometheus-server.monitoring.svc
         isDefault: true
+        # Its scrape interval; Grafana's 15s default makes $__rate_interval too short for rate() on 1m scrapes
+        jsonData:
+          timeInterval: 1m
       # The Zero's Prometheus on the ISP network: the ISP Blackbox probes, and the lab seen from outside
       - name: prometheus-zero
         uid: prometheus-zero
         type: prometheus
         url: http://192.168.0.62:9090
+        jsonData:
+          timeInterval: 1m
       - name: loki
         uid: loki
         type: loki
