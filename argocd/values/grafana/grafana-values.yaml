@@ -53,12 +53,35 @@ dashboardProviders:
         disableDeletion: true
         options:
           path: /var/lib/grafana/dashboards/grafana-com
+      - name: kubernetes
+        folder: Kubernetes
+        type: file
+        disableDeletion: true
+        options:
+          path: /var/lib/grafana/dashboards/kubernetes
 dashboards:
   grafana-com:
     # Has its own data source picker, so it covers both prometheus and prometheus-zero (LAB-154)
     node-exporter-full:
       gnetId: 1860
       revision: 45
+  # dotdc's Kubernetes views; each has its own data source picker (LAB-155)
+  kubernetes:
+    k8s-views-global:
+      gnetId: 15757
+      revision: 43
+    k8s-views-namespaces:
+      gnetId: 15758
+      revision: 46
+    k8s-views-nodes:
+      gnetId: 15759
+      revision: 40
+    k8s-views-pods:
+      gnetId: 15760
+      revision: 41
+    k8s-system-api-server:
+      gnetId: 15761
+      revision: 21
 
 service:
   type: LoadBalancer

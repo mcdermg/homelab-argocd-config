@@ -10,6 +10,14 @@ server:
 prometheus-node-exporter:
   tolerations:
     - operator: Exists
+# KSM only exposes the kube_*_labels metrics for allowlisted resources; the Kubernetes views count
+# namespaces, deployments, statefulsets and daemonsets with them (LAB-155). One label each keeps it small
+kube-state-metrics:
+  metricLabelsAllowlist:
+    - namespaces=[kubernetes.io/metadata.name]
+    - deployments=[app.kubernetes.io/name]
+    - statefulsets=[app.kubernetes.io/name]
+    - daemonsets=[app.kubernetes.io/name]
 # The Proxmox nodes aren't k8s nodes, so service discovery doesn't find them (LAB-90)
 extraScrapeConfigs: |
   - job_name: proxmox-nodes
