@@ -1,0 +1,16 @@
+# The annotations put it in the k3s Prometheus's kubernetes-service-endpoints job
+apiVersion: v1
+kind: Service
+metadata:
+  name: mktxp
+  namespace: monitoring
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "49090"
+spec:
+  selector:
+    app: mktxp
+  ports:
+    - name: metrics
+      port: 49090
+      targetPort: metrics

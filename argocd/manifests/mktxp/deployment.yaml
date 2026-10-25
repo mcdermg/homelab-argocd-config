@@ -1,0 +1,36 @@
+# mktxp exports the MikroTik's RouterOS metrics (LAB-159), based on mktxp's deploy/kubernetes at v2.1.0.
+# Its config directory is the mktxp-credentials Secret, created by homelab-proxmox's k3s.yaml (--tags monitoring)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mktxp
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: mktxp
+  template:
+    metadata:
+      labels:
+        app: mktxp
+    spec:
+      containers:
+        - name: mktxp
+          image: ghcr.io/akpw/mktxp:2.1.0
+          command: ["mktxp"]
+          args: ["--cfg-dir", "/mktxp_config", "export"]
+          ports:
+            - name: metrics
+              containerPort: 49090
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          volumeMounts:
+            - name: config
+              mountPath: /mktxp_config
+              readOnly: true
+      volumes:
+        - name: config
+          secret:
+            secretName: mktxp-credentials

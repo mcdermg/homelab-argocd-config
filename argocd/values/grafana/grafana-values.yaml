@@ -65,6 +65,12 @@ dashboardProviders:
         disableDeletion: true
         options:
           path: /var/lib/grafana/dashboards/cloudflare
+      - name: mikrotik
+        folder: MikroTik
+        type: file
+        disableDeletion: true
+        options:
+          path: /var/lib/grafana/dashboards/mikrotik
 dashboards:
   grafana-com:
     # Has its own data source picker, so it covers both prometheus and prometheus-zero (LAB-154)
@@ -93,6 +99,14 @@ dashboards:
     cloudflare-tunnel:
       gnetId: 24874
       revision: 4
+      datasource:
+        - name: DS_PROMETHEUS
+          value: prometheus
+  # The MikroTik from mktxp (LAB-159); needs Grafana 13.2.1 or later (LAB-160)
+  mikrotik:
+    mikrotik-mktxp:
+      gnetId: 13679
+      revision: 32
       datasource:
         - name: DS_PROMETHEUS
           value: prometheus
