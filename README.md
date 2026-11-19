@@ -22,4 +22,4 @@ ArgoCD pulls this repo from its Gitea mirror. The root app, installed by OpenTof
 
 ### Pre-commit
 
-Hooks are in `.pre-commit-config.yaml`. Set up once with `pre-commit install`.
+Hooks are in `.pre-commit-config.yaml`. Set up once with `pre-commit install --hook-type pre-commit --hook-type commit-msg`. The `commit-msg` hook (commitizen) does not run without it.

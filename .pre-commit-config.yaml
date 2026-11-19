@@ -1,13 +1,28 @@
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v6.0.0
-  hooks:
-    - id: end-of-file-fixer
-    - id: trailing-whitespace
-    - id: check-yaml
-      args: [--allow-multiple-documents]   # l2-pool.yaml has two docs split by ---
-    - id: detect-private-key
-- repo: https://github.com/gitleaks/gitleaks
-  rev: v8.30.0
-  hooks:
-    - id: gitleaks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-json
+      - id: detect-private-key
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: check-yaml
+        args: [--allow-multiple-documents]   # l2-pool.yaml has two docs split by ---
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.19.4
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
